@@ -56,7 +56,7 @@ deb s3://swift.example.com/my-bucket jessie main contrib
 
 apt-boto-s3 resolves AWS credentials in the usual manner.
 
-1. Environment variables: `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`
+1. Environment variables: `AWS_PROFILE`, `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`
 1. Credentials file: `~/.aws/credentials`
 1. Instance metadata: http://169.254.169.254
 

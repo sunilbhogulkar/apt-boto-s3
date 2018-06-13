@@ -285,6 +285,7 @@ class S3AptRequest(AptRequest):
             bucket, key = s3_uri.bucket_key()
 
             region = s3_uri.region
+            aws_profile_name = os.environ.get('AWS_PROFILE', None)
             botocore_session = settings.botocore_session()
             if not region and s3_uri.virtual_host_bucket:
                 # find bucket's region
@@ -294,6 +295,7 @@ class S3AptRequest(AptRequest):
                     aws_session_token=token,
                     region_name='us-east-1',
                     botocore_session=botocore_session,
+                    profile_name=aws_profile_name
                 )
                 s3_client = session.client('s3')
                 region = s3_client.get_bucket_location(Bucket=bucket)['LocationConstraint'] or 'us-east-1'
@@ -303,6 +305,7 @@ class S3AptRequest(AptRequest):
                 aws_session_token=token,
                 region_name=region or 'us-east-1',
                 botocore_session=botocore_session,
+                profile_name=aws_profile_name
             )
             s3 = session.resource('s3',
                 config=botocore.client.Config(signature_version=s3_uri.signature_version()),
